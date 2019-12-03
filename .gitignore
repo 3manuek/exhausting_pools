@@ -1,0 +1,11 @@
+**/terraform.tfstate*
+**.retry
+**/*.retry
+**/*.log
+**/.terraform.tfstate.lock.info
+**/.terraform
+**/.terraform/**
+
+.env
+venv/
+**/*.tfvars
