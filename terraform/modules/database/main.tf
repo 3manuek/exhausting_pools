@@ -9,10 +9,10 @@ resource "google_compute_disk" "default" {
   }
 }
 
-resource "google_compute_attached_disk" "default" {
-  disk     = google_compute_disk.default.self_link
-  instance = google_compute_instance.database-compute.self_link
-}
+# resource "google_compute_attached_disk" "default" {
+#   disk     = google_compute_disk.default.self_link
+#   instance = google_compute_instance.database-compute.self_link
+# }
 
 resource "google_compute_instance" "database-compute" {
   name         = var.instance_name
@@ -28,6 +28,14 @@ resource "google_compute_instance" "database-compute" {
       // size = "15"
     }
   }
+
+  attached_disk {
+    source = google_compute_disk.default.self_link
+  }
+  # The / partition, otherwise the disk will be the roo
+  # scratch_disk {
+  #   interface = "SCSI"
+  # }
 
   // Local SSD disk
   //  scratch_disk {

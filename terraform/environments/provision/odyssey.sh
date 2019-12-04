@@ -9,7 +9,7 @@ apt install -y cmake  build-essential libssl-dev
 # Odyssey needs Pg 10 headers ->https://www.postgresql.org/download/linux/ubuntu/
 
 mkdir /etc/odyssey
-cp /tmp/odyssey.conf /etc/odyssey
+cp /tmp/odyssey.conf /etc/odyssey/
 
 cat > /etc/systemd/system/odyssey.service <<EOF
 After=network.target
@@ -45,5 +45,8 @@ cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..
 make
 
-cp ./sources/odyssey /usr/bin/
-cp ../odyssey.conf /etc/odyssey.conf
+
+cp sources/odyssey /usr/bin/
+cp ../odyssey.conf /etc/odyssey/odyssey.conf
+
+systemctl enable odyssey.service

@@ -13,11 +13,12 @@ apt install -y postgresql-client-9.6 postgresql-9.6 parted
 
 # Initialize disk
 
-mkdir /data 2> /dev/null
-parted dev/sdb mklabel data
-parted -a optimal /dev/sdb mkpart primary 0% 100%
-mkfs.xfs /dev/sdb 
-mount -o defaults,nofail,noatime,noexec,nodiratime,noquota /dev/sdb1 /data
+# mkdir /opt/data 2> /dev/null
+
+# parted /dev/sdb mklabel data
+# parted -a optimal /dev/sdb mkpart primary 0% 100%
+# mkfs.xfs /dev/sdb 
+# mount -o defaults,nofail,noatime,noexec,nodiratime,noquota /dev/sdb1 /data
 
 # init data on it
 

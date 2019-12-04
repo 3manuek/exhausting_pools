@@ -7,7 +7,7 @@ module "postgres_instance" {
   extra_disk_type = "pd-ssd"
   #image = "ubuntu-os-cloud/ubuntu-1804-lts"
   image = "ubuntu-os-cloud/ubuntu-1604-lts"
-  startup_script = "../provision/postgres.sh"
+  startup_script = "${file("${path.module}/../provision/postgres.sh")}"
 }
 
 # module "pgbouncer_instance" {
