@@ -11,3 +11,12 @@ apt-get update
 
 apt install postgresql-client-9.6
 apt install postgresql-9.6
+
+# Initialize disk
+
+
+# init data on it
+
+
+# start service
+

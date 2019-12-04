@@ -27,7 +27,7 @@ module "oddysey_instance" {
   instance_zone = "europe-west4-b"
   #image = "ubuntu-os-cloud/ubuntu-1804-lts"
   image = "ubuntu-os-cloud/ubuntu-1604-lts"
-  startup_script = "${file("../provision/odyssey.sh")}"
-  source_file = "../../files/odyssey_binarie.zip"
+  startup_script = "${file("${path.module}/../provision/odyssey.sh")}"
+  source_file = "${path.module}/../../files/odyssey_binarie.zip"
   dest_path = "/tmp"
 }

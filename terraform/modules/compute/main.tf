@@ -3,7 +3,7 @@ resource "google_compute_instance" "node-compute" {
   machine_type = var.machine_type  #"n1-standard-4"
   zone = var.instance_zone #"europe-west4-b"
 
-  #tags = ["node"]
+  tags = ["node"]
 
   boot_disk {
     initialize_params {

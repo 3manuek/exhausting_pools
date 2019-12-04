@@ -19,7 +19,7 @@ resource "google_compute_instance" "database-compute" {
   machine_type = var.machine_type #"n1-standard-4"
   zone         = var.instance_zone #"europe-west4-b"
 
-  tags = [""]
+  tags = ["database"]
 
   boot_disk {
     initialize_params {
