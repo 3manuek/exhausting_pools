@@ -18,3 +18,11 @@ variable "image" {
 }
 
 variable "startup_script" {}
+
+variable "source_file" {
+  default = ""
+}
+
+variable "dest_path" {
+  default = ""
+}

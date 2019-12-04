@@ -4,7 +4,7 @@ variable "region" {
 
 variable "ssh_public_key_filepath" {
   description = "Filepath for the ssh public key"
-  type = "string"
+  type = string
 
   default = "~/.ssh/gcp.pub"
 }
@@ -25,7 +25,14 @@ variable "metadata" {
 
 variable "image" {
    # XXX: Use Teleport or a decent bastion image.
-   default = "ubuntu-1804-bionic-v20191021"
+   #default = "ubuntu-1804-bionic-v20191021"
+  default = "ubuntu-1604-xenial-v20191113" # gitlab's version
 }
 
+variable "source_file" {
+  default = ""
+}
 
+variable "dest_path" {
+  default = ""
+}
