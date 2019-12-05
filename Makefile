@@ -9,8 +9,9 @@ ifndef ENV
 endif
 
 # terraform init -backend-config=backend.hcl
+# We need to concat backendConfig + backend_connstr
 define backendConfig
-workspaces { name = "workspace" }
+workspaces { name = "$${ENV}" }
 organization = "OnGres"
 
 endef

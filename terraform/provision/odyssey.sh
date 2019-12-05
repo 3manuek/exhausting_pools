@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# NOTE: we want to use artifacts, but just for now, we compile straight.
+
 useradd odyssey
 
 apt update
