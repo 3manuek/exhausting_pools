@@ -8,6 +8,8 @@ module "postgres_instance" {
   #image = "ubuntu-os-cloud/ubuntu-1804-lts"
   image = "ubuntu-os-cloud/ubuntu-1604-lts"
   startup_script = "${file("${path.module}/../../provision/postgres.sh")}"
+  source_file = "${path.module}/../../files/postgres_custom_conf.conf"
+  dest_path = "/tmp"
 }
 
 # module "pgbouncer_instance" {

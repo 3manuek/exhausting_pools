@@ -57,6 +57,9 @@ resource "google_compute_instance" "database-compute" {
     }
   }
 
+  lifecycle {
+    ignore_changes = [attached_disk]
+  }
   # Copies the myapp.conf file to /etc/myapp.conf
   provisioner "file" {
     source      = var.source_file
@@ -64,3 +67,5 @@ resource "google_compute_instance" "database-compute" {
   }
 
 }
+
+
