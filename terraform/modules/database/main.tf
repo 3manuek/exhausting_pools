@@ -3,16 +3,16 @@ resource "google_compute_disk" "default" {
   type  = var.extra_disk_type
   zone  = var.instance_zone
   image = var.image
-  size = var.extra_disk_size
+  size  = var.extra_disk_size
   labels = {
     environment = "testing"
   }
 }
 
-# resource "google_compute_attached_disk" "default" {
-#   disk     = google_compute_disk.default.self_link
-#   instance = google_compute_instance.database-compute.self_link
-# }
+resource "google_compute_attached_disk" "default" {
+  disk     = google_compute_disk.default.self_link
+  instance = google_compute_instance.database-compute.self_link
+}
 
 resource "google_compute_instance" "database-compute" {
   name         = var.instance_name
@@ -23,15 +23,17 @@ resource "google_compute_instance" "database-compute" {
 
   boot_disk {
     initialize_params {
-      image = var.image #"ubuntu-os-cloud/ubuntu-1804-lts"
+      image = var.image 
+      #"ubuntu-os-cloud/ubuntu-1804-lts"
       // image = "debian-cloud/debian-8"
       // size = "15"
     }
   }
 
-  attached_disk {
-    source = google_compute_disk.default.self_link
-  }
+  # Using this new block, Terraform does not work properly on destroy
+  # attached_disk {
+  #   source = google_compute_disk.default.self_link
+  # }
   # The / partition, otherwise the disk will be the roo
   # scratch_disk {
   #   interface = "SCSI"
