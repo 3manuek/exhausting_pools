@@ -1,18 +1,19 @@
 #!/bin/bash
-
+source /usr/local/bin/lib.sh
 # NOTE: we want to use artifacts, but just for now, we compile straight.
 
 useradd odyssey
 
 apt update
 
-apt install -y cmake  build-essential libssl-dev
+apt install -y cmake  build-essential libssl-dev jq
 
 # Odyssey needs Pg 10 headers ->https://www.postgresql.org/download/linux/ubuntu/
 
 mkdir /etc/odyssey
 cp /tmp/odyssey.conf /etc/odyssey/
 
+DBIP=$(getDbIp)
 
 cat > /etc/odyssey/odyssey.conf <<EOF
 daemonize no
@@ -43,7 +44,7 @@ listen {
 }
 storage "postgres_server" {
         type "remote"
-        host "localhost"
+        host "${DBIP}"
         port 5432
 }
 database default {

@@ -26,3 +26,10 @@ variable "source_file" {
 variable "dest_path" {
   default = ""
 }
+
+variable "vm_depends_on" {
+  type    = any
+  default = null
+}
+
+variable "mode" {}

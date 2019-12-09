@@ -8,8 +8,8 @@ module "postgres_instance" {
   #image = "ubuntu-os-cloud/ubuntu-1804-lts"
   image = "ubuntu-os-cloud/ubuntu-1604-lts"
   startup_script = "${file("${path.module}/../../provision/postgres.sh")}"
-  source_file = "${path.module}/../../files/postgres_custom_conf.conf"
-  dest_path = "/tmp"
+  # source_file = "${path.module}/../../files/postgres_custom_conf.conf"
+  # dest_path = "/tmp"
 }
 
 # module "pgbouncer_instance" {
@@ -25,6 +25,7 @@ module "postgres_instance" {
 module "oddysey_instance" {
   source = "../../modules/compute"
   instance_name = "oddysey-node"
+  mode = "odyssey"
   machine_type = "n1-standard-4" # 4 cores 15 GB
   instance_zone = "europe-west4-b"
   #image = "ubuntu-os-cloud/ubuntu-1804-lts"
@@ -32,4 +33,5 @@ module "oddysey_instance" {
   startup_script = "${file("${path.module}/../../provision/odyssey.sh")}"
   source_file = "${path.module}/../../files/odyssey_binary.zip"
   dest_path = "/tmp"
+  vm_depends_on = [module.postgres_instance]
 }

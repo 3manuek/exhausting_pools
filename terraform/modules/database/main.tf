@@ -56,15 +56,19 @@ resource "google_compute_instance" "database-compute" {
       // Ephemeral IP
     }
   }
+  service_account {
+    # email = "${google_service_account.hermes.email}"
+    scopes = ["cloud-platform"]
+  }
 
   lifecycle {
     ignore_changes = [attached_disk]
   }
   # Copies the myapp.conf file to /etc/myapp.conf
-  provisioner "file" {
-    source      = var.source_file
-    destination = var.dest_path
-  }
+  # provisioner "file" {
+  #   source      = var.source_file
+  #   destination = var.dest_path
+  # }
 
 }
 
