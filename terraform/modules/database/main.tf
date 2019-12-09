@@ -9,10 +9,10 @@ resource "google_compute_disk" "default" {
   }
 }
 
-resource "google_compute_attached_disk" "default" {
-  disk     = google_compute_disk.default.self_link
-  instance = google_compute_instance.database-compute.self_link
-}
+# resource "google_compute_attached_disk" "default" {
+#   disk     = google_compute_disk.default.self_link
+#   instance = google_compute_instance.database-compute.self_link
+# }
 
 resource "google_compute_instance" "database-compute" {
   name         = var.instance_name
@@ -64,6 +64,7 @@ resource "google_compute_instance" "database-compute" {
   lifecycle {
     ignore_changes = [attached_disk]
   }
+
   # Copies the myapp.conf file to /etc/myapp.conf
   # provisioner "file" {
   #   source      = var.source_file
