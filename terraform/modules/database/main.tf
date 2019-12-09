@@ -9,10 +9,10 @@ resource "google_compute_disk" "default" {
   }
 }
 
-resource "google_compute_attached_disk" "default" {
-  disk     = google_compute_disk.default.self_link
-  instance = google_compute_instance.database-compute.self_link
-}
+# resource "google_compute_attached_disk" "default" {
+#   disk     = google_compute_disk.default.self_link
+#   instance = google_compute_instance.database-compute.self_link
+# }
 
 resource "google_compute_instance" "database-compute" {
   name         = var.instance_name
@@ -56,15 +56,20 @@ resource "google_compute_instance" "database-compute" {
       // Ephemeral IP
     }
   }
+  service_account {
+    # email = "${google_service_account.hermes.email}"
+    scopes = ["cloud-platform"]
+  }
 
   lifecycle {
     ignore_changes = [attached_disk]
   }
+
   # Copies the myapp.conf file to /etc/myapp.conf
-  provisioner "file" {
-    source      = var.source_file
-    destination = var.dest_path
-  }
+  # provisioner "file" {
+  #   source      = var.source_file
+  #   destination = var.dest_path
+  # }
 
 }
 

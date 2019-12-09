@@ -18,10 +18,10 @@ variable "image" {
 
 variable "startup_script" {}
 
-variable "source_file" {
-  default = ""
-}
+# variable "source_file" {
+#   default = ""
+# }
 
-variable "dest_path" {
-  default = ""
-}
+# variable "dest_path" {
+#   default = ""
+# }
