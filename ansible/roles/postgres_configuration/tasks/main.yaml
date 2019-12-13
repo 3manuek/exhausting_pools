@@ -1,0 +1,8 @@
+---
+- name: restart service postgres
+  service:
+    name: postgresql
+    state: started
+  notify: start postgres
+  tags: postgres
+

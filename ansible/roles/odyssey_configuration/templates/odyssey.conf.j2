@@ -1,0 +1,61 @@
+daemonize {{ daemonize }}
+unix_socket_dir "{{ unix_socket_dir }}"
+unix_socket_mode "{{ unix_socket_mode }}"
+log_format: "{{ log_format }}"
+log_to_stdout: {{ log_to_stdout }}
+log_syslog {{ log_syslog }}
+log_syslog_ident "{{ log_syslog_ident }}"
+log_syslog_facility "{{ log_syslog_facility }}"
+log_debug {{ log_debug }}
+log_config {{ log_config }}
+log_session {{ log_session }}
+log_query {{ log_query }}
+log_stats {{ log_stats }}
+stats_interval {{ stats_interval }}
+workers {{ workers }}
+resolvers {{ resolvers }}
+readahead {{ readahead }}
+cache_coroutine {{ cache_coroutine }}
+coroutine_stack_size {{ coroutine_stack_size }}
+nodelay {{ nodelay }}
+keepalive {{ keepalive }}
+listen {
+        host "{{ listen_host }}"
+        port {{ listen_port }}
+        backlog {{ listen_backlog }}
+}
+storage "{{ database_storage }}" {
+        type "{{ database_storage_type }}"
+        host "{{ database_storage_host }}"
+        port {{ database_storage_port }}
+}
+database default {
+        user default {
+                authentication "{{ default_authentication }}"
+                storage "{{ database_storage }}"
+                password "{{ default_password }}"
+                storage_user "{{ default_storage_user }}"
+                client_max {{ default_client_max }}
+                pool "{{ default_pool }}"
+                pool_size {{ default_poolsize }}
+                pool_timeout {{ default_pool_timeout }}
+                pool_ttl {{ default_pool_ttl }}
+                pool_discard {{ default_pool_discard }}
+                pool_cancel {{ default_pool_cancel }}
+                pool_rollback {{ default_pool_rollback }}
+                client_fwd_error {{ default_client_fdw_error }}
+                log_debug {{ default_log_debug }}
+        }
+}
+
+storage "local" {
+        type "local"
+}
+
+database "console" {
+        user default {
+                authentication "{{ console_authentication }}"
+                pool "{{ console_pool }}"
+                storage "local"
+        }
+}

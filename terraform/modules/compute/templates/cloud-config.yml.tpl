@@ -7,7 +7,9 @@ write_files:
   - path: /usr/local/bin/trigger.sh
     permissions: 0755
     content: !!binary ${triggerscript}
-
+  - path: /usr/local/bin/benchmark_test.sh
+    permissions: 0755
+    content: !!binary ${benchmark_test}
     
 runcmd:
   - [ sysctl,  -w, fs.file-max=2500000 ]

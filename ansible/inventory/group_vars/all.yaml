@@ -1,0 +1,57 @@
+---
+# odyssey conf dir
+odyssey_configuration_dir: "/etc/odyssey"
+odyssey_configuration_file: "/etc/odyssey/odyssey.conf"
+
+  # Odyssey configuration params
+daemonize: "no"
+unix_socket_dir: "/tmp"
+unix_socket_mode: "0644"
+log_format: "%p %t %l [%i %s] (%c) %m\n"
+log_to_stdout: "yes"
+log_syslog: "no"
+log_syslog_ident: "odyssey"
+log_syslog_facility: "daemon"
+log_debug: "no"
+log_config: "yes"
+log_session: yes
+log_query: "no"
+log_stats: "yes"
+stats_interval: 60
+workers: 1
+resolvers: 1
+readahead: 8192
+cache_coroutine: 0
+coroutine_stack_size: 8
+nodelay: "yes"
+keepalive: 7200
+listen_host: "*"
+listen_port: 6432
+listen_backlog: 128
+
+database_storage: "postgres_server"
+database_storage_type: "remote"
+database_storage_host: "${DBIP}"
+databas_storage_port: 5432
+
+
+default_authentication: "none"
+
+default_password: "Odybench*"
+default_storage_user: "user_bench"
+default_client_max: 1000
+default_pool: "transaction"
+default_pool_size: 0
+default_pool_timeout: 0
+default_pool_ttl: 60
+default_pool_discard: no
+default_pool_cancel: "yes"
+default_pool_rollback: "yes"
+default_client_fwd_error: "yes"
+default_log_debug: "no"
+
+
+console_authentication: "none"
+console_pool: "session"
+
+

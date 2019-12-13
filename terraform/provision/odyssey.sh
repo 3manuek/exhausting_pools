@@ -11,7 +11,6 @@ apt install -y cmake  build-essential libssl-dev
 # Odyssey needs Pg 10 headers ->https://www.postgresql.org/download/linux/ubuntu/
 
 mkdir /etc/odyssey
-cp /tmp/odyssey.conf /etc/odyssey/
 
 
 cat > /etc/odyssey/odyssey.conf <<EOF

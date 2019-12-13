@@ -1,6 +1,7 @@
 #!/bin/bash
 source /usr/local/bin/lib.sh
 # NOTE: we want to use artifacts, but just for now, we compile straight.
+# variables
 
 useradd odyssey
 
@@ -11,10 +12,10 @@ apt install -y cmake  build-essential libssl-dev jq
 # Odyssey needs Pg 10 headers ->https://www.postgresql.org/download/linux/ubuntu/
 
 mkdir /etc/odyssey
-cp /tmp/odyssey.conf /etc/odyssey/
 
 DBIP=$(getDbIp)
 
+# to cloud-init someday:
 cat > /etc/odyssey/odyssey.conf <<EOF
 daemonize no
 unix_socket_dir "/tmp"
@@ -51,7 +52,10 @@ database default {
         user default {
                 authentication "none"
                 storage "postgres_server"
-                pool "session"
+                password "Odybench*"
+                storage_user "user_bench"
+                client_max 1000
+                pool "transaction"
                 pool_size 0
                 pool_timeout 0
                 pool_ttl 60
@@ -106,6 +110,13 @@ apt-get update
 # pg version reason is to stick to GL's version,only headers do not match
 apt install -y postgresql-server-dev-10 postgresql-contrib-9.6 postgresql-client-9.6
 
+# drop default cluster
+pg_dropcluster 9.6 main --stop
+
+# add .pgpass file
+echo "*:*:*:user_bench:Odybench*" >> /var/lib/postgresql/.pgpass
+chmod 0600 /var/lib/postgresql/.pgpass
+
 #
 git clone git://github.com/yandex/odyssey.git
 cd odyssey
@@ -116,6 +127,7 @@ make
 
 
 cp sources/odyssey /usr/bin/
-cp ../odyssey.conf /etc/odyssey/odyssey.conf
+# cp ../odyssey.conf /etc/odyssey/odyssey.conf
 
 systemctl enable odyssey.service
+systemctl start odyssey.service
