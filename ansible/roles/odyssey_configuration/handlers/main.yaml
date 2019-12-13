@@ -1,0 +1,18 @@
+---
+- name: restart odyssey
+  service:
+    name: odyssey
+    state: restarted
+  tags: odyssey
+
+- name: start odyssey
+  service:
+    name: odyssey
+    state: started
+  tags: odyssey
+
+- name: stop odyssey
+  service:
+    name: odyssey
+    state: stopped
+  tags: odyssey

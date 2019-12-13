@@ -1,0 +1,20 @@
+---
+- name: stop odyssey service
+  service:
+    name: odyssey
+    state: stopped
+  tags: odyssey
+
+- name: Place odyssey configuration in {{ odyssey_configuration_dir }}
+  template:
+    src: odyssey.conf.j2
+    dest: "{{ odyssey_configuration_file }}"
+    backup: yes
+  notify: restart odyssey
+  tags: odyssey
+
+- name: start odyssey service
+  service:
+    name: odyssey
+    state: started
+  tags: odyssey

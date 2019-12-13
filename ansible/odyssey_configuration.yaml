@@ -1,0 +1,7 @@
+---
+- hosts: all
+  name: Odyssey Configuration
+  become: yes
+  gather_facts: yes
+  roles:
+    - {role: "odyssey_configuration"}
