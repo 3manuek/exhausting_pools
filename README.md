@@ -24,6 +24,15 @@ graph TB
 
 ## Setup
 
+### Install
+
+```
+https://github.com/adammck/terraform-inventory
+gcloud
+terraform
+```
+
+
 
 > Note: If you don't have setup a Postgres backend for Terraform, do it first and change
 > the connection string accordingly.
@@ -44,6 +53,7 @@ Before executing anything, authenticate through `gcloud` -- create an Editor pri
 ```
 gcloud auth login
 gcloud auth activate-service-account --key-file=$HOME/.gcloud/postgresql-support-dev-terraform-admin.json
+gcloud auth application-default login
 ```
 
 ## init

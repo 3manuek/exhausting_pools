@@ -1,7 +1,9 @@
 SHELL=/bin/sh
 # .PHONY: apply plan
 DEF_ENVIRONMENT=testing #I'll regret this some day
-
+ABSPATH=$(abspath .)
+ANSIBLE=ansible
+ANSIBLE_INVENTORY=$(ANSIBLE)/inventory
 # DEF_REGION=us-east-1
 
 ifndef ENV
@@ -37,3 +39,10 @@ init:
 	# welcome to terraform 0.12
 	# this could be fixed by defining an hcl based configuration for having the 
 	# connstring and the workspaces definition as in https://www.terraform.io/docs/backends/types/remote.html#example-configuration-using-cli-input
+
+.PHONY: inventory
+inventory:
+	source .env && export TF_WORKSPACE=$(ENV) &&\
+	gcloud config set project $${PROJECT} &&\
+	cd terraform/environments/$(ENV) && \
+	terraform-inventory --list | yq . > $(ABSPATH)/$(ANSIBLE_INVENTORY)/hosts.yml

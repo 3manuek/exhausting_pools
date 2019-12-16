@@ -9,3 +9,6 @@
 .env
 venv/
 **/*.tfvars
+
+**/hosts.yml
+**/hosts.yaml
