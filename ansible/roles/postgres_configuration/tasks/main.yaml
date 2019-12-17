@@ -1,8 +1,21 @@
 ---
-- name: restart service postgres
+
+# - name: add custom configuration to "postgresql.conf"
+#   blockinfile:
+#     dest: "{{ pg_config_path }}/postgresql.conf"
+#     block: |
+#       include 'custom_configuration.conf'
+
+- name: Place postgres configuration in {{ pg_config_path }}
+  template:
+    src: custom_configuration.conf.j2
+    dest: "{{ pg_custom_conf_file }}"
+    backup: yes
+  notify: reload postgres
+  tags: postgres
+
+- name: start postgres service
   service:
     name: postgresql
     state: started
-  notify: start postgres
   tags: postgres
-

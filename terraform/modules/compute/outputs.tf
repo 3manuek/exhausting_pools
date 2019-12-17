@@ -5,3 +5,8 @@ output "compute_instance_id" {
 output "compute_instance_ip" {
     value = ["${google_compute_instance.node-compute.network_interface.*.network_ip}"]
 }
+
+
+output "compute_external_ip" {
+  value = ["${google_compute_instance.node-compute.network_interface.0.access_config.0.nat_ip}"]
+}

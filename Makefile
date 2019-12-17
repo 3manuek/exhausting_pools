@@ -4,6 +4,7 @@ DEF_ENVIRONMENT=testing #I'll regret this some day
 ABSPATH=$(abspath .)
 ANSIBLE=ansible
 ANSIBLE_INVENTORY=$(ANSIBLE)/inventory
+ANSIBLE_PLAYBOOKS_DIR := $(abspath .)/ansible
 # DEF_REGION=us-east-1
 
 ifndef ENV
@@ -42,7 +43,13 @@ init:
 
 .PHONY: inventory
 inventory:
-	source .env && export TF_WORKSPACE=$(ENV) &&\
-	gcloud config set project $${PROJECT} &&\
-	cd terraform/environments/$(ENV) && \
-	terraform-inventory --list | yq . > $(ABSPATH)/$(ANSIBLE_INVENTORY)/hosts.yml
+	/bin/sh ansible_hosts_inventory.sh
+
+	# source .env && export TF_WORKSPACE=$(ENV) &&\
+	# gcloud config set project $${PROJECT} &&\
+	# cd terraform/environments/$(ENV) && \
+	# terraform-inventory --list | yq . > $(ABSPATH)/$(ANSIBLE_INVENTORY)/hosts.yml
+
+
+odyssey-conf:
+	ansible-playbook -l odyssey --inventory-file=${ANSIBLE_INVENTORY}/hosts.yaml ${ANSIBLE_PLAYBOOKS_DIR}/odyssey_configuration.yaml
