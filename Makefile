@@ -1,6 +1,6 @@
 SHELL=/bin/sh
 # .PHONY: apply plan
-DEF_ENVIRONMENT=testing #I'll regret this some day
+DEF_ENVIRONMENT=testing
 ABSPATH=$(abspath .)
 ANSIBLE=ansible
 ANSIBLE_INVENTORY=$(ANSIBLE)/inventory
@@ -9,25 +9,29 @@ ANSIBLE_PLAYBOOKS_DIR := $(abspath .)/ansible
 
 ifndef ENV
 	ENV=$(DEF_ENVIRONMENT)
+$(info WARNING you have not declared ENV, using $(DEF_ENVIRONMENT))
 endif
 
+
+## Tested, but it didn't work as expected.
 # terraform init -backend-config=backend.hcl
 # We need to concat backendConfig + backend_connstr
-define backendConfig
-workspaces { name = "$${ENV}" }
-organization = "OnGres"
+# define backendConfig
+# workspaces { name = "$${ENV}" }
+# organization = "OnGres"
 
-endef
+# endef
 
-# .PHONY: setup
 
 %:
 	source .env &&  cd terraform/environments/$(ENV) && terraform $*
 
+# .PHONY: setup
 # setup:
 # 	source .env && cd terraform/environments/$(ENV) && \
 # 	terraform workspace new $(ENV)
 # gcloud auth activate-service-account --key-file=$HOME/.gcloud/postgresql-support-dev-terraform-admin.json
+
 .PHONY: init
 init:
 	source .env && export TF_WORKSPACE=$(ENV) && gcloud config set project $${PROJECT} && \
@@ -44,12 +48,6 @@ init:
 .PHONY: inventory
 inventory:
 	/bin/sh ansible_hosts_inventory.sh
-
-	# source .env && export TF_WORKSPACE=$(ENV) &&\
-	# gcloud config set project $${PROJECT} &&\
-	# cd terraform/environments/$(ENV) && \
-	# terraform-inventory --list | yq . > $(ABSPATH)/$(ANSIBLE_INVENTORY)/hosts.yml
-
 
 odyssey-conf:
 	ansible-playbook -l odyssey --inventory-file=${ANSIBLE_INVENTORY}/hosts.yaml ${ANSIBLE_PLAYBOOKS_DIR}/odyssey_configuration.yaml

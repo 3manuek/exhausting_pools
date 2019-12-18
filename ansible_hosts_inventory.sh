@@ -1,5 +1,7 @@
 #!/bin/bash
 project_dir=$(pwd)
+hostsyaml="${project_dir}/ansible/inventory/hosts.yaml"
+
 
 set -x
 
@@ -13,12 +15,12 @@ then
   exit 1
 fi
 
-if [ -s ${project_dir}/ansible/inventory/hosts.yaml ]
+if [ -s ${hostsyaml} ]
 then
-  rm ${project_dir}/ansible/inventory/hosts.yaml
+  rm ${hostsyaml}
 fi
 
-cat >> ${project_dir}/ansible/inventory/hosts.yaml << EOF
+cat >> ${hostsyaml} << EOF
 
 all:
   children:
