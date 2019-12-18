@@ -5,7 +5,7 @@ resource "google_compute_instance" "node-compute" {
 
   depends_on = [var.vm_depends_on]
 
-  tags = ["node"]
+  tags = [var.tags]
 
   boot_disk {
     initialize_params {

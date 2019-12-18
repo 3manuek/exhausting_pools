@@ -1,4 +1,35 @@
 ---
+
+# postgres custom confiuration params
+pg_version: "9.6"
+pg_clustername: "bench"
+pg_config_path: "/etc/postgresql/{{ pg_version }}/{{ pg_clustername }}"
+pg_custom_conf_file: "{{ pg_config_path }}/custom_configuration.conf "
+
+listen_addresses: "*"
+max_connections: 300
+shared_buffers: "16GB"
+checkpoint_completion_target: 0.9
+random_page_cost: 1.1
+effective_cache_size: "45GB"
+default_statistics_target: 200
+log_destination: "stderr"
+logging_collector: "on"
+log_directory: "pg_log"
+log_checkpoints: "on"
+log_connections: "on"
+log_disconnections: "on"
+log_duration: "on"
+work_mem: "4MB"
+maintenance_work_mem: "64MB"
+effective_io_concurrency: 1
+max_worker_processes: 4
+max_parallel_maintenance_workers: 2
+max_parallel_workers_per_gather: 2
+max_parallel_workers: 4
+max_wal_size: "4GB"
+min_wal_size: "1GB"
+
 # odyssey conf dir
 odyssey_configuration_dir: "/etc/odyssey"
 odyssey_configuration_file: "/etc/odyssey/odyssey.conf"

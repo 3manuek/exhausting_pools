@@ -35,4 +35,5 @@ module "oddysey_instance" {
   dest_path = "/tmp"
   vm_depends_on = [module.postgres_instance]
   db_instance_name = "postgres-node" # we assume both are in the same _zone_
+  tags = "odyssey"
 }

@@ -5,6 +5,12 @@
     state: restarted
   tags: postgres
 
+- name: reload postgres
+  service:
+    name: postgresql
+    state: reloaded
+  tags: postgres
+
 - name: start postgres
   service:
     name: postgresql

@@ -34,6 +34,7 @@ variable "vm_depends_on" {
 
 variable "mode" {}
 
-variable "db_instance_name" {
-  
-}
+variable "db_instance_name" {}
+
+variable "tags" {}
+
