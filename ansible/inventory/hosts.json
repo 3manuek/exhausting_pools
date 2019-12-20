@@ -1,0 +1,206 @@
+{
+    "_meta": {
+        "hostvars": {
+            "10.128.0.3": {
+                "canIpForward": false,
+                "cpuPlatform": "Unknown CPU Platform",
+                "creationTimestamp": "2019-09-16T13:17:12.880-07:00",
+                "deletionProtection": false,
+                "description": "",
+                "disks": [
+                    {
+                        "autoDelete": true,
+                        "boot": true,
+                        "deviceName": "pg-collect-stat-indexes",
+                        "guestOsFeatures": [
+                            {
+                                "type": "VIRTIO_SCSI_MULTIQUEUE"
+                            }
+                        ],
+                        "index": 0,
+                        "interface": "SCSI",
+                        "kind": "compute#attachedDisk",
+                        "licenses": [
+                            "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-9-stretch"
+                        ],
+                        "mode": "READ_WRITE",
+                        "source": "https://www.googleapis.com/compute/v1/projects/postgresql-support-dev/zones/us-central1-a/disks/pg-collect-stat-indexes",
+                        "type": "PERSISTENT"
+                    }
+                ],
+                "displayDevice": {
+                    "enableDisplay": false
+                },
+                "id": "967839902766093096",
+                "image": null,
+                "kind": "compute#instance",
+                "labelFingerprint": "42WmSpB8rSM=",
+                "machineType": "f1-micro",
+                "machineType_selflink": "https://www.googleapis.com/compute/v1/projects/postgresql-support-dev/zones/us-central1-a/machineTypes/f1-micro",
+                "metadata": {
+                    "fingerprint": "r5BzKyeqD1g=",
+                    "kind": "compute#metadata"
+                },
+                "name": "pg-collect-stat-indexes",
+                "networkInterfaces": [
+                    {
+                        "accessConfigs": [
+                            {
+                                "kind": "compute#accessConfig",
+                                "name": "External NAT",
+                                "networkTier": "PREMIUM",
+                                "type": "ONE_TO_ONE_NAT"
+                            }
+                        ],
+                        "fingerprint": "XCWND3r6lSM=",
+                        "kind": "compute#networkInterface",
+                        "name": "nic0",
+                        "network": {
+                            "name": "default",
+                            "region": "global",
+                            "selfLink": "https://www.googleapis.com/compute/v1/projects/postgresql-support-dev/global/networks/default"
+                        },
+                        "networkIP": "10.128.0.3",
+                        "subnetwork": {
+                            "name": "default",
+                            "region": "us-central1",
+                            "selfLink": "https://www.googleapis.com/compute/v1/projects/postgresql-support-dev/regions/us-central1/subnetworks/default"
+                        }
+                    }
+                ],
+                "project": "postgresql-support-dev",
+                "reservationAffinity": {
+                    "consumeReservationType": "ANY_RESERVATION"
+                },
+                "scheduling": {
+                    "automaticRestart": true,
+                    "onHostMaintenance": "MIGRATE",
+                    "preemptible": false
+                },
+                "selfLink": "https://www.googleapis.com/compute/v1/projects/postgresql-support-dev/zones/us-central1-a/instances/pg-collect-stat-indexes",
+                "serviceAccounts": [
+                    {
+                        "email": "891445954093-compute@developer.gserviceaccount.com",
+                        "scopes": [
+                            "https://www.googleapis.com/auth/devstorage.read_only",
+                            "https://www.googleapis.com/auth/logging.write",
+                            "https://www.googleapis.com/auth/monitoring.write",
+                            "https://www.googleapis.com/auth/servicecontrol",
+                            "https://www.googleapis.com/auth/service.management.readonly",
+                            "https://www.googleapis.com/auth/trace.append"
+                        ]
+                    }
+                ],
+                "startRestricted": false,
+                "status": "TERMINATED",
+                "tags": {
+                    "fingerprint": "42WmSpB8rSM="
+                },
+                "zone": "us-central1-a",
+                "zone_selflink": "https://www.googleapis.com/compute/v1/projects/postgresql-support-dev/zones/us-central1-a"
+            },
+            "34.82.81.166": {
+                "ansible_host": "34.82.81.166",
+                "canIpForward": false,
+                "cpuPlatform": "Intel Broadwell",
+                "creationTimestamp": "2019-11-07T14:58:16.222-08:00",
+                "deletionProtection": false,
+                "disks": [
+                    {
+                        "autoDelete": true,
+                        "boot": true,
+                        "deviceName": "persistent-disk-0",
+                        "guestOsFeatures": [
+                            {
+                                "type": "VIRTIO_SCSI_MULTIQUEUE"
+                            }
+                        ],
+                        "index": 0,
+                        "interface": "SCSI",
+                        "kind": "compute#attachedDisk",
+                        "licenses": [
+                            "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/licenses/ubuntu-1804-lts"
+                        ],
+                        "mode": "READ_WRITE",
+                        "source": "https://www.googleapis.com/compute/v1/projects/postgresql-support-dev/zones/us-west1-b/disks/paxful-bastion",
+                        "type": "PERSISTENT"
+                    }
+                ],
+                "id": "5867408782944444264",
+                "image": null,
+                "kind": "compute#instance",
+                "labelFingerprint": "42WmSpB8rSM=",
+                "machineType": "n1-standard-1",
+                "machineType_selflink": "https://www.googleapis.com/compute/v1/projects/postgresql-support-dev/zones/us-west1-b/machineTypes/n1-standard-1",
+                "metadata": {
+                    "fingerprint": "S-0Y48oMC4M=",
+                    "items": [
+                        {
+                            "key": "enable-oslogin",
+                            "value": "TRUE"
+                        }
+                    ],
+                    "kind": "compute#metadata"
+                },
+                "name": "paxful-bastion",
+                "networkInterfaces": [
+                    {
+                        "accessConfigs": [
+                            {
+                                "kind": "compute#accessConfig",
+                                "name": "external-nat",
+                                "natIP": "34.82.81.166",
+                                "networkTier": "PREMIUM",
+                                "type": "ONE_TO_ONE_NAT"
+                            }
+                        ],
+                        "fingerprint": "qrXNgBiEw5o=",
+                        "kind": "compute#networkInterface",
+                        "name": "nic0",
+                        "network": {
+                            "name": "default",
+                            "region": "global",
+                            "selfLink": "https://www.googleapis.com/compute/v1/projects/postgresql-support-dev/global/networks/default"
+                        },
+                        "networkIP": "10.138.0.2",
+                        "subnetwork": {
+                            "name": "default",
+                            "region": "us-west1",
+                            "selfLink": "https://www.googleapis.com/compute/v1/projects/postgresql-support-dev/regions/us-west1/subnetworks/default"
+                        }
+                    }
+                ],
+                "project": "postgresql-support-dev",
+                "scheduling": {
+                    "automaticRestart": true,
+                    "onHostMaintenance": "MIGRATE",
+                    "preemptible": false
+                },
+                "selfLink": "https://www.googleapis.com/compute/v1/projects/postgresql-support-dev/zones/us-west1-b/instances/paxful-bastion",
+                "startRestricted": false,
+                "status": "RUNNING",
+                "tags": {
+                    "fingerprint": "OVmh2sA7r6Y=",
+                    "items": [
+                        "bastion",
+                        "paxful",
+                        "public"
+                    ]
+                },
+                "zone": "us-west1-b",
+                "zone_selflink": "https://www.googleapis.com/compute/v1/projects/postgresql-support-dev/zones/us-west1-b"
+            }
+        }
+    },
+    "all": {
+        "children": [
+            "ungrouped"
+        ]
+    },
+    "ungrouped": {
+        "hosts": [
+            "10.128.0.3",
+            "34.82.81.166"
+        ]
+    }
+}

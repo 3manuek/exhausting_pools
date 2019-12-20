@@ -1,0 +1,21 @@
+plugin: gcp_compute
+zone:
+  - europe-west4-b
+projects:
+  - postgresql-support-dev
+service_account_file: "${HOME}/.gcloud/postgresql-support-dev-terraform-admin.json"
+auth_kind: serviceaccount
+scopes:
+ - 'https://www.googleapis.com/auth/cloud-platform'
+# keyed_groups:
+# #   # Create groups from GCE labels
+# #   - prefix: database
+# #     key: labels
+#   - prefix: odyssey
+#     key: labels
+# hostnames:
+#   - postgres-node
+#   - odyssey-node
+compose:
+  ansible_host: networkInterfaces[0].accessConfigs[0].natIP
+## Additional info could be found at https://docs.ansible.com/ansible/latest/plugins/inventory/gcp_compute.html

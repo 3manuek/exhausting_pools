@@ -11,4 +11,5 @@ venv/
 **/*.tfvars
 
 **/hosts.yml
+**/hosts.json
 **/hosts.yaml
