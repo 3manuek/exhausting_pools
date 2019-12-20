@@ -22,9 +22,9 @@ module "postgres_instance" {
 # }
 
 
-module "oddysey_instance" {
+module "odyssey_instance" {
   source = "../../modules/compute"
-  instance_name = "oddysey-node"
+  instance_name = "odyssey-node"
   mode = "odyssey"
   machine_type = "n1-standard-4" # 4 cores 15 GB
   instance_zone = "europe-west4-b"

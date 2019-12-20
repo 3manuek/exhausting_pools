@@ -11,11 +11,11 @@
 # }
 
 output "odyssey_instance_ip" {
-  value = ["${module.oddysey_instance.compute_instance_ip}"]
+  value = ["${module.odyssey_instance.compute_instance_ip}"]
 }
 
 output "odyssey_external_ip" {
-  value = ["${module.oddysey_instance.compute_external_ip}"]
+  value = ["${module.odyssey_instance.compute_external_ip}"]
 }
 
 output "postgres_instance_ip" {
