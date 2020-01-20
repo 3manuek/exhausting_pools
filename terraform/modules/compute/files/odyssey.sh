@@ -7,11 +7,12 @@ useradd odyssey
 
 apt update
 
-apt install -y cmake  build-essential libssl-dev jq
+apt install -y cmake  build-essential libssl-dev jq htop linux-tools-`uname -r`
 
 # Odyssey needs Pg 10 headers ->https://www.postgresql.org/download/linux/ubuntu/
 
 mkdir /etc/odyssey
+mkdir /var/log/odyssey
 
 DBIP=$(getDbIp)
 
@@ -20,6 +21,7 @@ cat > /etc/odyssey/odyssey.conf <<EOF
 daemonize no
 unix_socket_dir "/tmp"
 unix_socket_mode "0644"
+log_file "/var/log/odyssey/odyssey.log"
 log_format "%p %t %l [%i %s] (%c) %m\n"
 log_to_stdout yes
 log_syslog no
