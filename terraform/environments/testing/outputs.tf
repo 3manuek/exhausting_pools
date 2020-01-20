@@ -18,7 +18,7 @@ output "odyssey_external_ip" {
   value = ["${module.odyssey_instance.compute_external_ip}"]
 }
 
-output "clien_instance_ip" {
+output "client_instance_ip" {
   value = ["${module.client_instance.compute_instance_ip}"]
 }
 
