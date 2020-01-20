@@ -5,7 +5,7 @@ set -x
 # Variables
 # This variable is for initialize data pourpuse
 init_bench=$1
-scale_factor=10
+scale_factor=100
 #################
 warmup=$2  # run a test without capture values
 test_times=$3   # Times to execute the test
@@ -15,7 +15,8 @@ ctest=$6        # Amount of connections to test
 time=$7         # test time
 user=$8         # Database user
 db=$9           # Database
-
+#sar_time=$(($test_times * $time))
+echo "sar time: "$sar_time
 # date and time
 dt=$(date '+%Y%m%d_%H-%M-%S');
 
@@ -23,6 +24,8 @@ dt=$(date '+%Y%m%d_%H-%M-%S');
 tmpfile_log=/tmp/.$RANDOM-$RANDOM
 tmpfile_resume=/tmp/.$RANDOM-$RANDOM
 tmpfile_csv=/tmp/.$RANDOM-$RANDOM
+tmpfile_sar=/tmp/.sar-$RANDOM-$RANDOM
+tmpfile_sar_avg=/tmp/.sar_avg-$RANDOM-$RANDOM
 insert_sql=/tmp/bench_data_${dt}.sql
 ## postgresql password
 export PGPASSFILE=/var/lib/postgresql/.pgpass
@@ -78,7 +81,18 @@ function init_data(){
 						execution_time_seconds integer,
 						tps numeric,
 						latency numeric,
-						execution_date timestamp default now());"
+						execution_date timestamp default now());
+
+				CREATE TABLE cpu_stats (
+						batch_id integer,
+						cpu integer,
+						percent_user numeric,
+						percent_nice numeric,
+						percent_system numeric,
+						percent_iowait numeric,
+						percent_steal numeric,
+						percent_idle numeric);
+						"
 
 			# initialize bench tables
 			runuser -u postgres -m -p -- pgbench -i -h $host -p $port -s $scale_factor -U $user $db #> /dev/null 2>&1
@@ -96,7 +110,8 @@ function warmup(){
 
 function run_test(){
 	if [ $1 -eq 1 ]; then
-  	  runuser -u postgres -m -p -- $PGBENCH -h $host -p $port -c $ctest -n -T $time -U $user $db > $tmpfile_log
+  	  # runuser -u postgres -m -p -- $PGBENCH -h $host -p $port -c $ctest -n -T $time -U $user $db > $tmpfile_log # bak
+			runuser -u postgres -m -p -- $PGBENCH -h $host -p $port -c $ctest -C -t 1 -n -T $time -U $user $db > $tmpfile_log
   		grep -E "tps\s=\sa?\d*.a?\d*" $tmpfile_log | tee -a $tmpfile_resume > /dev/null
   		grep latency $tmpfile_log | tee -a $tmpfile_resume > /dev/null
   		rm $tmpfile_log
@@ -154,7 +169,7 @@ function run_test(){
 					for i in ${tps[@]}
 					do
 					  echo $n";"$ctest";"$time";"$i";"${latency[$n]} #| tee -a $csv_file
-						bench_data+="insert into bench_test_data (batch_id,execution,pool_size,connections_amount, execution_time_seconds,tps,latency) values($batch_id,$n,$pool_size,$ctest,$time,$i,${latency[$n]});"
+						bench_data+="insert into bench_test_data (batch_id,execution,pool_size,connections_amount, execution_time_seconds,tps,latency) values($batch_id,$n,${pool_size:-0},$ctest,$time,$i,${latency[$n]});"
 					  ((n++))
 					done
 					echo "Average;;;"$avg_tps";"$avg_latency #| tee -a $csv_file
@@ -169,10 +184,7 @@ if [ ! -z "$bench_data" ]
 then
 		echo "** Inserting data to table **"
   	runuser -u postgres -m -p -- psql -h $host -p $port -U $user $db -c "$bench_data"
-
-
 fi
-
 
 }
 
@@ -191,6 +203,29 @@ function get_pool_size_from_conf(){
     fi
 }
 
+### wip
+function get_cpu_stats(){
+	threads=$(nproc --all)
+
+	if sar -P ALL $time 3 -o $tmpfile_sar; then
+		batch_id="$(echo -e "${batch_id}" | sed -e 's/^[[:space:]]*//')"
+		cpu_stats_data=$(
+				sar -P ALL $time 3  -f $tmpfile_sar | grep Average | sed 's/,/./g' \
+				| awk 'FNR > 1 {print "insert into cpu_stats (batch_id,cpu,percent_user,percent_nice,percent_system,percent_iowait,percent_steal,percent_idle ) values (id_batch,"$2",",$3",",$4",",$5",",$6",",$7",",$8");"}' | sed "s/id_batch/$batch_id/g" )
+
+		#  cpu_stats_data=$(echo $cpu_stats_data_tmp | sed s/batch/$batch_id/g)
+		#  echo $cpu_stats_data
+	fi
+
+	if [ ! -z "$cpu_stats_data" ]
+	then
+		echo "** Inserting data to table **"
+  	runuser -u postgres -m -p -- psql -h $host -p $port -U $user $db -c "$cpu_stats_data"
+	fi
+
+
+}
+### wip
 
 ## Main
 
@@ -200,9 +235,9 @@ check_pgbench
 drop_chache_so
 init_data $init_bench
 warmup $warmup
-run_test $test_times
-
-
+#run_test $test_times
+get_last_bacth
+run_test $test_times & pid_bench=$!; get_cpu_stats & pid_sar=$!; wait $pid_bench $pid_sar
 
 
 
