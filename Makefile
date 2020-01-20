@@ -36,13 +36,6 @@ endef
 %:
 	source .env &&  cd terraform/environments/$(ENV) && terraform $*
 
-# .PHONY: setup
-# setup:
-# 	source .env && cd terraform/environments/$(ENV) && \
-# 	terraform workspace new $(ENV)
-# gcloud auth activate-service-account --key-file=$HOME/.gcloud/postgresql-support-dev-terraform-admin.json
-
-
 .PHONY: setup
 setup:
 	gcloud auth activate-service-account --key-file=${CREDS} && \

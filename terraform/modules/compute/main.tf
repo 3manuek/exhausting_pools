@@ -33,13 +33,7 @@ resource "google_compute_instance" "node-compute" {
 
   metadata = {
     enable-oslogin = "TRUE"
-    # startup-script = var.startup_script #"${data.template_file.default.rendered}" #"${data.template_cloudinit_config.datanode_config.rendered}"
-    # startup_script = "${data.template_cloudinit_config.compute_config.rendered}"
     user-data = "${data.template_cloudinit_config.compute_config.rendered}"
   }
-  # Copies the file file to /path/file
-  # provisioner "file" {
-  #   source      = var.source_file
-  #   destination = var.dest_path
-  # }
+
 }

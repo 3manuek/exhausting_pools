@@ -29,10 +29,6 @@ variable "image" {
   default = "ubuntu-1604-xenial-v20191113" # gitlab's version
 }
 
-variable "source_file" {
-  default = ""
-}
-
 variable "dest_path" {
   default = ""
 }

@@ -5,10 +5,8 @@ module "postgres_instance" {
   instance_zone = "europe-west4-b"
   extra_disk_size = "200"
   extra_disk_type = "pd-ssd"
-  #image = "ubuntu-os-cloud/ubuntu-1804-lts"
   image = "ubuntu-os-cloud/ubuntu-1604-lts"
   startup_script = "${file("${path.module}/../../provision/postgres.sh")}"
-  # source_file = "${path.module}/../../files/postgres_custom_conf.conf"
   # dest_path = "/tmp"
 }
 
@@ -28,12 +26,23 @@ module "odyssey_instance" {
   mode = "odyssey"
   machine_type = "n1-standard-4" # 4 cores 15 GB
   instance_zone = "europe-west4-b"
-  #image = "ubuntu-os-cloud/ubuntu-1804-lts"
   image = "ubuntu-os-cloud/ubuntu-1604-lts"
-  startup_script = "${file("${path.module}/../../provision/odyssey.sh")}"
-  source_file = "${path.module}/../../files/odyssey_binary.zip"
   dest_path = "/tmp"
   vm_depends_on = [module.postgres_instance]
   db_instance_name = "postgres-node" # we assume both are in the same _zone_
   tags = "odyssey"
+}
+
+
+module "client_instance" {
+  source = "../../modules/compute"
+  instance_name = "client-node"
+  mode = "client"
+  machine_type = "n1-standard-4" # 4 cores 15 GB
+  instance_zone = "europe-west4-b"
+  image = "ubuntu-os-cloud/ubuntu-1604-lts"
+  dest_path = "/tmp"
+  vm_depends_on = [module.odyssey_instance]
+  db_instance_name = "client-node" # we assume both are in the same _zone_
+  tags = "client"
 }
