@@ -2,7 +2,7 @@ resource "google_compute_instance" "node-compute" {
   name = var.instance_name
   machine_type = var.machine_type  #"n1-standard-4"
   zone = var.instance_zone #"europe-west4-b"
-
+  count = var.replicas
   depends_on = [var.vm_depends_on]
 
   tags = [var.tags]

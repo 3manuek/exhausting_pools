@@ -7,6 +7,7 @@ data "template_file" "compute_template" {
         lib = "${base64encode(file("${path.module}/files/lib.sh"))}"
         triggerscript =  "${base64encode(file("${path.module}/files/${var.mode}.sh"))}"
         benchmark_test =  "${base64encode(file("${path.module}/files/benchmark_test.sh"))}"
+        plainbench =  "${base64encode(file("${path.module}/files/plainbench.sh"))}"
         # triggerscript =  "${file("${path.module}/files/${var.mode}.sh")}"
     }
 }

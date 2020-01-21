@@ -37,8 +37,9 @@ module "odyssey_instance" {
 module "client_instance" {
   source = "../../modules/compute"
   instance_name = "client-node"
+  replicas = 2
   mode = "client"
-  machine_type = "n1-standard-4" # 4 cores 15 GB
+  machine_type = "n1-standard-8" # 4 cores 15 GB
   instance_zone = "europe-west4-b"
   image = "ubuntu-os-cloud/ubuntu-1604-lts"
   dest_path = "/tmp"

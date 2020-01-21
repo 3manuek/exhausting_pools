@@ -13,6 +13,7 @@ apt install -y cmake  build-essential libssl-dev jq htop linux-tools-`uname -r`
 
 mkdir /etc/odyssey
 mkdir /var/log/odyssey
+chown -R odyssey: /var/log/odyssey/
 
 DBIP=$(getDbIp)
 
@@ -56,9 +57,8 @@ database default {
                 storage "postgres_server"
                 password "Odybench*"
                 storage_user "user_bench"
-                client_max 1000
                 pool "transaction"
-                pool_size 0
+                pool_size 32
                 pool_timeout 0
                 pool_ttl 60
                 pool_discard no
@@ -66,6 +66,7 @@ database default {
                 pool_rollback yes
                 client_fwd_error yes
                 log_debug no
+                log_session no
         }
 }
 

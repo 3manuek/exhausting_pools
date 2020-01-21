@@ -103,7 +103,7 @@ function init_data(){
 function warmup(){
 
 		if [[ $1 -eq 1 ]]; then
-			runuser -u postgres -m -p -- pgbench -i -h $host -p $port -c $ctest -n -T $time -U $user $db > /dev/null 2>&1
+			runuser -u postgres -m -p -- pgbench -h $host -p $port -c $ctest -n -T $time -U $user $db > /dev/null 2>&1
 		fi
 }
 

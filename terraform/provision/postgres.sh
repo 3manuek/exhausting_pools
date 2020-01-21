@@ -9,7 +9,7 @@ EOF
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 apt-get update -y
 
-apt install -y postgresql-client-9.6 postgresql-9.6 parted
+apt install -y postgresql-client-9.6 postgresql-9.6 parted htop jq bc 
 
 # Initialize disk
 

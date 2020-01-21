@@ -5,7 +5,7 @@ useradd postgres
 
 apt update
 
-apt install -y jq htop linux-tools-`uname -r`
+apt install -y jq htop linux-tools-`uname -r` bc
 
 
 cat > /etc/apt/sources.list.d/pgdg.list <<EOF
@@ -22,3 +22,4 @@ mkdir -p /var/lib/postgresql
 echo "*:*:*:user_bench:Odybench*" >> /var/lib/postgresql/.pgpass
 chmod 0600 /var/lib/postgresql/.pgpass
 
+DBIP=$(getDbIp)

@@ -33,3 +33,6 @@ variable "db_instance_name" {}
 
 variable "tags" {}
 
+variable "replicas" {
+  default = "1"
+}
