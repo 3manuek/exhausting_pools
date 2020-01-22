@@ -1,5 +1,5 @@
 resource "google_compute_instance" "node-compute" {
-  name = var.instance_name
+  name = "${var.instance_name}-${count.index}"
   machine_type = var.machine_type  #"n1-standard-4"
   zone = var.instance_zone #"europe-west4-b"
   count = var.replicas

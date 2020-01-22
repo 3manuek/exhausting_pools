@@ -10,7 +10,7 @@ write_files:
   - path: /usr/local/bin/benchmark_test.sh
     permissions: 0755
     content: !!binary ${benchmark_test}
-    - path: /usr/local/bin/plainbench.sh
+  - path: /usr/local/bin/plainbench.sh
     permissions: 0755
     content: !!binary ${plainbench}
 

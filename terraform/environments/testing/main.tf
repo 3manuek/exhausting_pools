@@ -43,7 +43,7 @@ module "client_instance" {
   instance_zone = "europe-west4-b"
   image = "ubuntu-os-cloud/ubuntu-1604-lts"
   dest_path = "/tmp"
-  vm_depends_on = [module.odyssey_instance]
-  db_instance_name = "client-node" # we assume both are in the same _zone_
+  # vm_depends_on = [module.odyssey_instance]
+  db_instance_name = "odyssey-node" # we assume both are in the same _zone_
   tags = "client"
 }

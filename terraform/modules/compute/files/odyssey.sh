@@ -66,7 +66,6 @@ database default {
                 pool_rollback yes
                 client_fwd_error yes
                 log_debug no
-                log_session no
         }
 }
 
