@@ -39,7 +39,7 @@ endef
 .PHONY: clean
 clean:
 	source .env &&  cd terraform/environments/$(ENV) && \
-	terraform destroy && terraform destroy -auto-approve
+	terraform destroy || terraform destroy -auto-approve
 	
 .PHONY: setup
 setup:
