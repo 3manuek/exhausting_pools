@@ -34,7 +34,7 @@ log_session yes
 log_query no
 log_stats yes
 stats_interval 60
-workers 1
+workers 7
 resolvers 1
 readahead 8192
 cache_coroutine 0

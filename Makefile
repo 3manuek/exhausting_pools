@@ -36,6 +36,11 @@ endef
 %:
 	source .env &&  cd terraform/environments/$(ENV) && terraform $*
 
+.PHONY: clean
+clean:
+	source .env &&  cd terraform/environments/$(ENV) && \
+	terraform destroy && terraform destroy -auto-approve
+	
 .PHONY: setup
 setup:
 	gcloud auth activate-service-account --key-file=${CREDS} && \
