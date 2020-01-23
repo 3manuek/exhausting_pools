@@ -133,3 +133,5 @@ cp sources/odyssey /usr/bin/
 
 systemctl enable odyssey.service
 systemctl start odyssey.service
+systemctl enable sysstat.service 
+systemctl start sysstat.service 
