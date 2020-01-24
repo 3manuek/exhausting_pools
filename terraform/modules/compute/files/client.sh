@@ -22,4 +22,5 @@ mkdir -p /var/lib/postgresql
 echo "*:*:*:user_bench:Odybench*" >> /var/lib/postgresql/.pgpass
 chmod 0600 /var/lib/postgresql/.pgpass
 
-DBIP=$(getDbIp)
+DBIP=$(getPoolIp)
+

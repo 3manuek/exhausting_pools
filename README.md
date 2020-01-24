@@ -1,20 +1,34 @@
 # poc-odyssey
 
-Odyssey and PgBouncer comparison. 
+Odyssey Pool Stress scenario.
 
+## Objective
+
+It is intended to test Odyssey on stressed environments. 
+
+
+
+## Architecture
 
 ```mermaid
 graph TB
-    pgbouncer["PgBouncer"] -.  s/Threads*2  .-> Postgres
-    odyssey["Odyssey"] -.  s/Threads*2  .-> Postgres
+    odysseyp["Odyssey"] -.  Pool Size: s/Threads*2  .-> Postgres
+    pgbench["PgBench"] --> odysseyp
+    pgbenchN["PgBench"] --> odysseyp
 
-    subgraph SLB["PgBouncer Compute"]
-        clientp["Benchmark Client"] -. c/CPU*100 .-> pgbouncer
-        pgbouncer["PgBouncer"]
+    subgraph CLI["Client Compute"]
+        pgbench["PgBench"]
+        pgbench_N["PgBench...N"]
     end
-    subgraph PLB["Odyssey Compute"]
-        cliento["Benchmark Client"] -. c/CPU*100 .-> odyssey
-        odyssey["Odyssey"]
+    subgraph CLN["Client Compute N"]
+        pgbenchN["PgBench"]
+        pgbenchN_N["PgBench...N"]
+    end
+    subgraph ODY["Odyssey Compute"]
+        odysseyp["Odyssey Parent"] -.- odysseysys
+        odysseyp["Odyssey Parent"] -.- odysseyworkerN
+        odysseysys["Odyssey System"]
+        odysseyworkerN["Odyssey Workers"]
     end
     subgraph PG["Postgres Compute"]
         Postgres
@@ -24,7 +38,7 @@ graph TB
 
 ## Setup
 
-### Install
+### Install requirements
 
 ```
 https://github.com/adammck/terraform-inventory
