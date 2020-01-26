@@ -10,14 +10,18 @@ module "postgres_instance" {
   # dest_path = "/tmp"
 }
 
-# module "pgbouncer_instance" {
-#   source = "../../modules/compute"
-#   instance_name = "pgbouncer-node"
-#   machine_type = "n1-standard-4"
-#   instance_zone = "europe-west4-b"
-#   image = "ubuntu-os-cloud/ubuntu-1804-lts"
-#   startup_script = "${file("../../provision/pgbouncer.sh")}"
-# }
+module "pgbouncer_instance" {
+  source = "../../modules/compute"
+  instance_name = "pgbouncer-node"
+  machine_type = "n1-standard-4"
+  instance_zone = "europe-west4-b"
+  image = "ubuntu-os-cloud/ubuntu-1804-lts"
+  vm_depends_on = [module.postgres_instance]
+  # startup_script = "${file("../../provision/pgbouncer.sh")}"
+  tags = "pgbouncer"
+  mode = "pgbouncer"
+  db_instance_name = "postgres-node" 
+}
 
 
 module "odyssey_instance" {

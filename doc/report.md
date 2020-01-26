@@ -45,9 +45,12 @@ Single thread works better on non-stressed environment.
 
 ### Simple x 4
 
+Same command x4 on each machine.
+
 worker 1:
 
-clietn 1
+Client 1
+
 ```
 latency average = 16983.467 ms
 latency average = 16796.224 ms
@@ -85,4 +88,76 @@ latency average = 21231.577 ms
 latency stddev = 16735.296 ms
 tps = 45.855924 (including connections establishing)
 tps = 45.863425 (excluding connections establishing)
+```
+
+
+workers 4:
+
+c1
+```
+latency average = 21593.920 ms
+latency stddev = 29076.788 ms
+tps = 45.509321 (including connections establishing)
+tps = 45.543096 (excluding connections establishing)
+latency average = 21187.313 ms
+latency stddev = 28809.827 ms
+tps = 46.382473 (including connections establishing)
+tps = 46.410902 (excluding connections establishing)
+latency average = 21566.501 ms
+latency stddev = 29385.999 ms
+tps = 45.566391 (including connections establishing)
+tps = 45.591312 (excluding connections establishing)
+latency average = 21972.079 ms
+latency stddev = 29324.720 ms
+tps = 44.723216 (including connections establishing)
+tps = 44.752016 (excluding connections establishing)
+```
+
+c2
+```
+latency average = 26184.200 ms
+latency stddev = 36339.877 ms
+tps = 37.527402 (including connections establishing)
+tps = 37.529810 (excluding connections establishing)
+latency average = 25626.522 ms
+latency stddev = 36007.878 ms
+tps = 38.356157 (including connections establishing)
+tps = 38.358594 (excluding connections establishing)
+latency average = 25591.010 ms
+latency stddev = 35997.885 ms
+tps = 38.409127 (including connections establishing)
+tps = 38.411620 (excluding connections establishing)
+latency average = 25768.502 ms
+latency stddev = 36088.158 ms
+tps = 38.161753 (including connections establishing)
+tps = 38.164609 (excluding connections establishing)
+
+```
+
+
+
+
+## Pgbouncer
+
+More than 1000 connections, pgbouncer stalls
+
+```
+root@client-node-0:~# pgbench -h 10.164.15.194 -P 2 -C -p 6433 -T 90 -C -c 500 -n -U user_bench postgres
+
+number of transactions actually processed: 118047
+latency average = 380.029 ms
+latency stddev = 13.745 ms
+tps = 1310.159360 (including connections establishing)
+tps = 1312.325104 (excluding connections establishing)
+```
+
+
+For odyssey, on that amont of connections, is less performant, but it keeps replying at a very high number of connections:
+
+```
+number of transactions actually processed: 54030
+latency average = 827.701 ms
+latency stddev = 122.164 ms
+tps = 599.397707 (including connections establishing)
+tps = 600.481851 (excluding connections establishing)
 ```
