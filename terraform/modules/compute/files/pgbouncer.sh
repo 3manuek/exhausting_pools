@@ -10,6 +10,9 @@ apt update
 
 apt install -y pgbouncer jq
 
+systemctl stop pgbouncer.service 
+
+
 DBIP=$(getDbIp)
 
 
