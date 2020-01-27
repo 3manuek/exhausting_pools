@@ -33,5 +33,23 @@ cat > /etc/pgbouncer/userlist.ini <<EOF
 "user_bench" "Odybench*"
 EOF
 
+cat > /etc/systemd/system/pgbouncer.service <<EOF
+[Unit]
+Description=PgBouncer
+After=network.target
+
+[Service]
+User=postgres
+Group=postgres
+ExecStart=/usr/sbin/pgbouncer /etc/pgbouncer/pgbouncer.ini
+ExecReload=/usr/sbin/pgbouncer -R /etc/pgbouncer/pgbouncer.ini
+StandardOutput=journal
+StandardError=journal
+LimitNOFILE=200000
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
 systemctl enable pgbouncer.service 
 systemctl start pgbouncer.service 

@@ -21,6 +21,8 @@ apt install -y postgresql-contrib-9.6 postgresql-client-9.6
 mkdir -p /var/lib/postgresql
 echo "*:*:*:user_bench:Odybench*" >> /var/lib/postgresql/.pgpass
 chmod 0600 /var/lib/postgresql/.pgpass
+echo "*:*:*:user_bench:Odybench*" >> /root/.pgpass
+chmod 0600 /root/.pgpass
 
 DBIP=$(getPoolIp)
 
