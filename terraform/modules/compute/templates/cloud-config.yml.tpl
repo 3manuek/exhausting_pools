@@ -16,7 +16,7 @@ write_files:
 
 runcmd:
   - [ sysctl,  -w, fs.file-max=2500000 ]
-  - 'ulimit -n 64000'
+  - 'ulimit -n 220000'
   - [ echo, never, '>/sys/kernel/mm/transparent_hugepage/enabled']
   - [ echo, never, '>/sys/kernel/mm/transparent_hugepage/defrag']
   - [ sysctl, -w, 'net.ipv4.tcp_fin_timeout=1']

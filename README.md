@@ -10,23 +10,28 @@ It is intended to test Odyssey on stressed environments.
 
 ## Architecture
 
+In order to save infrastructure resources, benchs can run to pgbouncer and
+odyssey but not at the same time. Both pools point to the same database endpoint and
+client can point indistintively to each of the pools.
+
+
 ```mermaid
 graph TB
-    odysseyp["Odyssey"] -.  Pool Size: s/Threads*2  .-> Postgres
-    pgbench["PgBench"] --> odysseyp
-    pgbenchN["PgBench"] --> odysseyp
+    odysseyp["Odyssey"] -. Pool Size=32 .-> Postgres
+    pgbouncer["PgBouncer"] -. Pool Size=32 .-> Postgres
+    pgbench["PgBench"] -. unlimited clients .-> odysseyp
+    pgbench["PgBench"] -. max_client_conn=100k .-> pgbouncer
 
     subgraph CLI["Client Compute"]
         pgbench["PgBench"]
         pgbench_N["PgBench...N"]
     end
-    subgraph CLN["Client Compute N"]
-        pgbenchN["PgBench"]
-        pgbenchN_N["PgBench...N"]
+    subgraph PGB["Pgbouncer Compute"]
+        pgbouncer["PgBouncer"]
     end
     subgraph ODY["Odyssey Compute"]
         odysseyp["Odyssey Parent"] -.- odysseysys
-        odysseyp["Odyssey Parent"] -.- odysseyworkerN
+        odysseyp["Odyssey Parent"] -. workers=N .- odysseyworkerN
         odysseysys["Odyssey System"]
         odysseyworkerN["Odyssey Workers"]
     end
@@ -84,11 +89,12 @@ make ENV=testing plan|apply
 
 ## Bench tests
 
-From any client :
+From any client (points to database endpoint):
 
 ```
 /usr/local/bin/plainbench.sh -i
 ```
+
 
 ```
 /usr/local/bin/plainbench.sh [odyssey|pgbouncer] [secs] [conn] [iter]

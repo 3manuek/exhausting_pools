@@ -94,8 +94,8 @@ User=odyssey
 Group=odyssey
 Type=simple
 ExecStart=/usr/bin/odyssey /etc/odyssey/odyssey.conf
-LimitNOFILE=100000
-LimitNPROC=100000
+LimitNOFILE=200000
+LimitNPROC=200000
 
 [Install]
 WantedBy=multi-user.target
