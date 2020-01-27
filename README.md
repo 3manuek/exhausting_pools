@@ -89,3 +89,13 @@ From any client :
 ```
 /usr/local/bin/plainbench.sh -i
 ```
+
+```
+/usr/local/bin/plainbench.sh [odyssey|pgbouncer] [secs] [conn] [iter]
+```
+
+eg:
+
+```
+/usr/local/bin/plainbench.sh odyssey 20 500 20
+```
