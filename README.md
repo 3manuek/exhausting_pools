@@ -82,3 +82,10 @@ Then, as usual:
 make ENV=testing plan|apply
 ```
 
+## Bench tests
+
+From any client :
+
+```
+/usr/local/bin/plainbench.sh -i
+```

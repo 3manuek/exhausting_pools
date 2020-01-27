@@ -4,16 +4,18 @@ source /usr/local/bin/lib.sh
 # variables
 
 useradd pgbouncer
-DBIP=$(getDbIp)
+
 
 apt update
 
-apt install -y pgbouncer
+apt install -y pgbouncer jq
+
+DBIP=$(getDbIp)
+
 
 cat > /etc/pgbouncer/pgbouncer.ini <<EOF
 [databases]
 postgres =  host=${DBIP} auth_user=user_bench password='Odybench*' pool_size=32
-[users]
 [pgbouncer]
 logfile = /var/log/postgresql/pgbouncer.log
 pidfile = /var/run/postgresql/pgbouncer.pid
@@ -29,7 +31,7 @@ query_wait_timeout = 0
 
 EOF
 
-cat > /etc/pgbouncer/userlist.ini <<EOF
+cat > /etc/pgbouncer/userlist.txt <<EOF
 "user_bench" "Odybench*"
 EOF
 

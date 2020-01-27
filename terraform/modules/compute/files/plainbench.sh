@@ -27,6 +27,7 @@ esac
 BENCHID=$(openssl rand -hex 12)
 TIME=${2:-"90"}
 CONN=${3:-"1000"}
+ITER=${4:-"20"}
 WORKERS=${WORKERS:-"1"}
 
 cat > $BENCHDIR/${1}/${BENCHID}.meta <<EOF
@@ -38,7 +39,7 @@ EOF
 
 # psql -U user_bench -h ${endpoint} -p 6432 console
 
-for i in $(seq 1 20)
+for i in $(seq 1 ${ITER})
 do 
   pgbench  -h ${endpoint} -C -p 6432 -T ${TIME} -C -c ${CONN} -n -U user_bench postgres | egrep 'tps|latency' | tee -a $BENCHDIR/${1}/${BENCHID}.log & 
 done
