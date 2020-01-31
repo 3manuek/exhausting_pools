@@ -7,6 +7,14 @@ BENCHDIR=/var/bench
 mkdir -p ${BENCHDIR}/pgbouncer
 mkdir -p ${BENCHDIR}/odyssey
 
+BENCHID=$(openssl rand -hex 12)
+TIME=${2:-"90"}
+CONN=${3:-"1000"}
+ITER=${4:-"20"}
+RATE=${5:-"200"}
+WORKERS=${WORKERS:-"1"}
+
+
 case ${1} in
   pgbouncer)
     endpoint=$(getPgbouncerIp)
@@ -24,11 +32,7 @@ case ${1} in
     ;;
 esac
 
-BENCHID=$(openssl rand -hex 12)
-TIME=${2:-"90"}
-CONN=${3:-"1000"}
-ITER=${4:-"20"}
-WORKERS=${WORKERS:-"1"}
+
 
 cat > $BENCHDIR/${1}/${BENCHID}.meta <<EOF
 TYPE=${1}
@@ -41,6 +45,6 @@ EOF
 
 for i in $(seq 1 ${ITER})
 do 
-  pgbench  -h ${endpoint} -C -p 6432 -T ${TIME} -C -c ${CONN} -n -U user_bench postgres | egrep 'tps|latency' | tee -a $BENCHDIR/${1}/${BENCHID}.log & 
+  pgbench  -h ${endpoint} -C --rate=${RATE} -p 6432 -T ${TIME} -C -c ${CONN} -n -U user_bench postgres | egrep 'tps|latency' | tee -a $BENCHDIR/${1}/${BENCHID}.log & 
 done
 
