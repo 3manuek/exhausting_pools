@@ -2,6 +2,7 @@
 
 ## Odyssey 20 iterations, 500 connections each , 20 secs, 7 workers
 
+```
 + pgbench -h 10.164.15.212 -C -p 6432 -T 20 -C -c 500 -n -U user_bench postgres
 + tee -a /var/bench/odyssey/eebb99693f2e4fabd269d74e.log
 + tee -a /var/bench/odyssey/eebb99693f2e4fabd269d74e.log
@@ -65,11 +66,12 @@ tps = 24.502860 (excluding connections establishing)
 latency average = 20891.233 ms
 tps = 23.933485 (including connections establishing)
 tps = 23.961807 (excluding connections establishing)
-
+```
 
 
 ## Odyssey 20 iterations, 500 connections each , 20 secs, 3 workers
 
+```
 + pgbench -h 10.164.15.212 -C -p 6432 -T 20 -C -c 500 -n -U user_bench postgres
 + egrep 'tps|latency'
 + egrep 'tps|latency'
@@ -133,10 +135,11 @@ tps = 31.727339 (excluding connections establishing)
 latency average = 16138.592 ms
 tps = 30.981637 (including connections establishing)
 tps = 31.031332 (excluding connections establishing)
-
+```
 
 ## Odyssey 20 iterations, 500 connections each , 20 secs, 1 workers
 
+```
 + pgbench -h 10.164.15.212 -C -p 6432 -T 20 -C -c 500 -n -U user_bench postgres
 root@client-node-0:~# latency average = 18147.308 ms
 tps = 27.552296 (including connections establishing)
@@ -198,10 +201,11 @@ tps = 27.531112 (excluding connections establishing)
 latency average = 11383.646 ms
 tps = 43.922657 (including connections establishing)
 tps = 43.977352 (excluding connections establishing)
-
+```
 
 ## Pgbouncer 20 iterations, 500 connections each , 20 secs
 
+```
 + pgbench -h 10.164.15.214 -C -p 6432 -T 20 -C -c 500 -n -U user_bench postgres
 + egrep 'tps|latency'
 + egrep 'tps|latency'
@@ -267,3 +271,4 @@ tps = 128.642800 (excluding connections establishing)
 latency average = 3877.883 ms
 tps = 128.936320 (including connections establishing)
 tps = 129.023854 (excluding connections establishing)
+```
